@@ -1,60 +1,25 @@
-class MyTodoList:
-    def __init__(self):
-        self.tasks = []
+import random
+import string
 
-    def Addyour_task(self, task):
-        self.tasks.append(task)
-
-    def Removeyour_task(self, task):
-        if task in self.tasks:
-            self.tasks.remove(task)
-        else:
-            print("Task not found!")
-
-    def Updateyour_task(self, old_task, new_task):
-        if old_task in self.tasks:
-            index = self.tasks.index(old_task)
-            self.tasks[index] = new_task
-        else:
-            print("Task not found!")
-
-    def Showyour_tasks(self):
-        if self.tasks:
-            print("Your To-Do List:")
-            for task in self.tasks:
-                print("-", task)
-        else:
-            print("Your To-Do List is empty!")
-
-def main():
-    todo_list = MyTodoList()
-
-    while True:
-        print("\n1. Add Task")
-        print("2. Remove Task")
-        print("3. Update Task")
-        print("4. Show Tasks")
-        print("5. Exit")
-
-        your_choice = input("\nEnter your choice: ")
-
-        if your_choice == '1':
-            task = input("Enter task to add: ")
-            todo_list.add_task(task)
-        elif your_choice == '2':
-            task = input("Enter task to remove: ")
-            todo_list.remove_task(task)
-        elif your_choice == '3':
-            old_task = input("Enter task to update: ")
-            new_task = input("Enter new task: ")
-            todo_list.update_task(old_task, new_task)
-        elif your_choice == '4':
-            todo_list.show_tasks()
-        elif your_choice == '5':
-            print("Exiting the program...")
-            break
-        else:
-            print("Invalid choice! Please try again.")
+def generate_password(complexity="medium"):
+    l1 = int(input("Enter the desired length of the password: "))
+    
+    if l1 <= 0:
+        print("Password length should be greater than 0.")
+        return
+    
+    possible_chars = {
+        "easy": string.ascii_lowercase + string.digits,
+        "medium": string.ascii_letters + string.digits,
+        "hard": string.ascii_letters + string.digits + string.punctuation
+    }
+    
+    l2 = possible_chars.get(complexity, string.ascii_letters + string.digits)
+    
+    l3 = ''.join(random.choice(l2) for _ in range(l1))
+    
+    print("Generated Password: {}".format(l3))
 
 if __name__ == "__main__":
-    main()
+    complexity = input("Enter the complexity of the password (easy, medium, hard): ").lower()
+    generate_password(complexity)
