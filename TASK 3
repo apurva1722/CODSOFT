@@ -1,0 +1,25 @@
+import random
+import string
+
+def generate_password(complexity="medium"):
+    l1 = int(input("Enter the desired length of the password: "))
+    
+    if l1 <= 0:
+        print("Password length should be greater than 0.")
+        return
+    
+    possible_chars = {
+        "easy": string.ascii_lowercase + string.digits,
+        "medium": string.ascii_letters + string.digits,
+        "hard": string.ascii_letters + string.digits + string.punctuation
+    }
+    
+    l2 = possible_chars.get(complexity, string.ascii_letters + string.digits)
+    
+    l3 = ''.join(random.choice(l2) for _ in range(l1))
+    
+    print("Generated Password: {}".format(l3))
+
+if __name__ == "__main__":
+    complexity = input("Enter the complexity of the password (easy, medium, hard): ").lower()
+    generate_password(complexity)
